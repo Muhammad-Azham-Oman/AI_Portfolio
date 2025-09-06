@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<style>
+  body {
+    background-image: url("{{ url_for('static', filename='imgg.jpg') }}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0a0a0a; /* fallback dark */
+    color: #f4c430; /* soft gold */
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 36px;
+    margin-top: 30px;
+    color: #f4c430; /* gold */
+    text-shadow: 1px 1px 4px #000;
+  }
+
+  form {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  label {
+    font-size: 20px;
+    color: #f4c430; /* royal gold */
+  }
+
+  select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #f4c430;
+    background-color: #1a1a1a;
+    color: #40f430;
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #f4c430;
+    color: #0a0a0a;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+  }
+
+  button:hover {
+    background-color: #e5b100;
+  }
+
+  article {
+    background-color: #121212;
+    color: #f4c430;
+    border: 1px solid #f4c430;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  article:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(255, 215, 0, 0.25);
+  }
+
+  h3 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #ffd700;
+    text-shadow: 1px 1px 2px #000;
+  }
+
+  p {
+    margin: 8px 0;
+    color: #e0c97f;
+  }
+.select2-container--default .select2-results__option {
+  color: #000000 !important; /* black text */
+}
+
+</style>
+
+
+
+
+<head>
+    <title>Game Recommender</title>
+    <!-- Load jQuery and Select2 CSS/JS from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+</head>
+<body>
+    <h1>Game Recommendation System</h1>
+
+    <form method="post" action="/recommend">
+        <label for="game_name">Select a Game:</label>
+        <select id="game_name" name="game_name" style="width: 300px;">
+          <option value="" disabled selected>Select a game</option>
+          {% for name in game_names %}
+          <option value="{{ name }}">{{ name }}</option>
+      {% endfor %}
+      </select>
+
+        <button type="submit">Recommend</button>
+    </form>
+
+    {% if error %}
+        <h2 style="color: red;">{{ error }}</h2>
+    {% endif %}
+
+    <div style="
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  margin-top: 20px;
+">
+  {% for rec in recommendations %}
+    <article style="
+      width: 250px;
+      border: 1px solid #ffb300;
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #1e25a6;
+      box-shadow: 0 4px 8px #0f61cd;
+      transition: transform 0.2s;
+    " onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+      <h3 style="margin-top: 0; font-size: 20px; color: #b1192dcc;">{{ rec['Name'] }}</h3>
+      <p style="margin: 8px 0;"><strong>Platform:</strong> {{ rec['Platform'] }}</p>
+      <p style="margin: 8px 0;"><strong>Genre:</strong> {{ rec['Genre'] }}</p>
+      <p style="margin: 8px 0;"><strong>Sales:</strong> {{ rec['Global_Sales']}}M</p>
+    </article>
+  {% endfor %}
+</div>
+    
+
+    <!-- Enable Select2 -->
+    <script>
+        $(document).ready(function() {
+            $('#game_name').select2({
+                placeholder: "Start typing a game...",
+                allowClear: false
+            });
+        });
+    </script>
+</body>
+</html>
