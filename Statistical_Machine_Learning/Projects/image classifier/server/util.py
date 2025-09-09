@@ -88,11 +88,3 @@ def get_b64_txt_image():
 if __name__ == '__main__':
     load_saved_artifacts()
     print(classify_image(get_b64_txt_image() , None))
-
-    print(classify_image(None , "C:/Users/USER/Documents/image classifier/server/test_images/Atifaslam_1.jpg"))
-    print(classify_image(None , "C:/Users/USER/Documents/image classifier/server/test_images/Atifaslam_73.jpg"))
-    print(classify_image(None , "C:/Users/USER/Documents/image classifier/server/test_images/Shahrukhkhan_11.jpg"))
-    print(classify_image(None , "C:/Users/USER/Documents/image classifier/server/test_images/Shahrukhkhan_16.jpg"))
-    print(classify_image(None , "C:/Users/USER/Documents/image classifier/server/test_images/Shahrukhkhan_26.jpg"))
-    print(classify_image(None , "C:/Users/USER/Documents/image classifier/server/test_images/Atifaslam_2.jpg"))
-    print(classify_image(None , "C:/Users/USER/Documents/image classifier/server/test_images/Atifaslam_5.jpg"))
