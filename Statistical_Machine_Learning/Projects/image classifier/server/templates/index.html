@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Classifier</title>
+</head>
+<body style="background-color: lightgray; font-family: Arial, sans-serif; text-align: center;">
+    
+    <h1>Image Classifier</h1>
+    <h3>Upload an Image of <em>Shahrukh Khan</em> or <em>Atif Aslam</em></h3>
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" required><br><br>
+        <input type="submit" value="Classify">
+    </form>
+
+    {% if error %}
+        <h2 style="color: red;">{{ error }}</h2>
+    {% endif %}
+    {% if unknown %}
+        <h2 style="color: red;">{{ unknown }}</h2>
+    {% endif %}
+
+    {% if result %}
+        <h2>Result:</h2>
+        <p><strong>Celebrity:</strong> {{ result['Celebrity'] }}</p>
+        <p><strong>Probability:</strong> {{ result['class_probability'] }}%</p>
+    {% endif %}
+
+</body>
+</html>
+
